@@ -1,0 +1,3 @@
+C:/Clion Projects/FTL/Hafman/cmake-build-debug/CMakeFiles/Hafman.dir
+C:/Clion Projects/FTL/Hafman/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Clion Projects/FTL/Hafman/cmake-build-debug/CMakeFiles/rebuild_cache.dir
