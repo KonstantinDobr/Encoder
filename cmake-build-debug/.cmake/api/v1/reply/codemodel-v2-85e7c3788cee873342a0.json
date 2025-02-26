@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.26"
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Hafman::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Hafman-Debug-a1c927fb5dfabf0f77b7.json",
+					"jsonFile" : "target-Hafman-Debug-0454f1deb5eba6c226f2.json",
 					"name" : "Hafman",
 					"projectIndex" : 0
 				}
@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Clion Projects/FTL/Hafman/cmake-build-debug",
-		"source" : "C:/Clion Projects/FTL/Hafman"
+		"build" : "/Users/damir/Encoder/cmake-build-debug",
+		"source" : "/Users/damir/Encoder"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 5
+		"minor" : 6
 	}
 }

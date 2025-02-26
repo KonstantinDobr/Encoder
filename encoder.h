@@ -9,7 +9,7 @@
 #include <clocale>
 #include <codecvt>
 
-#include "generator.h."
+#include "generator.h"
 
 using namespace std;
 
@@ -21,28 +21,21 @@ map<wchar_t, wstring> get_tree_by_wstring(const wstring& base) {
     vector<node*> qu = {root};
 
     for (int i = 1, cur = 0; i < base.size(); i += 2, ++cur) {
-        if (qu[cur] == nullptr) continue;
-
-        if (base[i] == '`') {
-            qu[cur]->l = nullptr;
-        } else {
-            qu[cur]->l = new node;
-            qu[cur]->l->symbol = base[i];
+        qu[cur]->l = new node;
+        qu[cur]->l->symbol = base[i];
+        if (base[i] == L'§') {
             qu.push_back(qu[cur]->l);
         }
 
-        if (base[i + 1] == '`') {
-            qu[cur]->r = nullptr;
-        } else {
-            qu[cur]->r = new node;
-            qu[cur]->r->symbol = base[i + 1];
+        qu[cur]->r = new node;
+        qu[cur]->r->symbol = base[i + 1];
+        if (base[i + 1] == L'§') {
             qu.push_back(qu[cur]->r);
         }
-
     }
 
     dfs(root, L"", table);
-    if (root->symbol != '$') {
+    if (root->symbol != L'§') {
         wcout << L"0\n";
         table[root->symbol] = L"0";
     }
@@ -59,13 +52,13 @@ wstring decode(const wstring& text) {
     wstring result;
     node* cur = root;
     for (int c : text) {
-        if (c == '0') {
+        if (c == L'0') {
             cur = cur->l;
         } else {
             cur = cur->r;
         }
 
-        if (cur->symbol != '$') {
+        if (cur->symbol != L'§') {
             result += cur->symbol;
             cur = root;
         }

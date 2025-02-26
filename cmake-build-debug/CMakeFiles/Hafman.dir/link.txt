@@ -1,0 +1,1 @@
+/usr/local/bin/c++-12 -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/Hafman.dir/main.cpp.o -o Hafman 

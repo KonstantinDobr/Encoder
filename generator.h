@@ -11,7 +11,9 @@
 
 using namespace std;
 
-const int maxN = 10'000;
+const wstring alphabet = L"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                         L"абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+                         L"?!'\"<>=+-*/\\_()[]{}@#%;:.,\n";
 
 struct node {
     wchar_t symbol;
@@ -22,7 +24,7 @@ struct node {
 };
 
 void dfs(node* v, const wstring& code, map<wchar_t, wstring>& table) {
-    if (v->symbol != '$') {
+    if (v->symbol != L'§') {
         wcout << v->symbol << L" " << code << "\n";
         table[v->symbol] = code;
         return;
@@ -36,29 +38,24 @@ void dfs(node* v, const wstring& code, map<wchar_t, wstring>& table) {
 void bfs(node* root, wstring& result) {
     vector<node*> que = {root};
     for (int i = 0; i < que.size(); ++i) {
-        if (que[i] == nullptr) {
-            result += '`';
-        } else {
-            result += que[i]->symbol;
-            que.push_back(que[i]->l);
-            que.push_back(que[i]->r);
-        }
+        if (que[i] == nullptr) continue;
+        result += que[i]->symbol;
+        que.push_back(que[i]->l);
+        que.push_back(que[i]->r);
     }
 }
 
 wstring generate(const wstring& text) {
     vector<node*> vertexes;
-    vector<int> symbols(maxN);
+    map<wchar_t, int> symbols;
 
-    for (wchar_t c : text) {
-        ++symbols[c];
-    }
+    for (wchar_t c : alphabet) symbols[c] = 0;
+    for (wchar_t c : text) ++symbols[c];
 
-    for (int i = 0; i < maxN; ++i) {
-        if (!symbols[i]) continue;
+    for (auto [c, cnt] : symbols) {
         node* v = new node;
-        v->symbol = (wchar_t) i;
-        v->cnt = symbols[i];
+        v->symbol = c;
+        v->cnt = cnt;
 
         vertexes.push_back(v);
         for (size_t j = vertexes.size() - 1; j > 0; --j) {
@@ -74,7 +71,7 @@ wstring generate(const wstring& text) {
 
         node* parent = new node;
         parent->cnt = left->cnt + right->cnt;
-        parent->symbol = '$';
+        parent->symbol = L'§';
         parent->l = left;
         parent->r = right;
 
@@ -88,13 +85,23 @@ wstring generate(const wstring& text) {
 
     map<wchar_t, wstring> table;
     dfs(root, L"", table);
-    if (root->symbol != '$') {
+    if (root->symbol != L'§') {
         wcout << "0\n";
         table[root->symbol] = L"0";
     }
 
     wstring result;
     bfs(root, result);
-    wcout << result << L"\n";
+    for (wchar_t c : result) {
+        if (c == '\n') {
+            wcout << L"\\n";
+        } else if (c == '\\') {
+            wcout << L"\\\\";
+        } else if (c == '"') {
+            wcout << L"\\\"";
+        } else {
+            wcout << c;
+        }
+    }
     return result;
 }
